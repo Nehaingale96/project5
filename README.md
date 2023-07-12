@@ -1,70 +1,195 @@
-# Getting Started with Create React App
+import React, { useState } from 'react'
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+import { Link, useNavigate } from 'react-router-dom'
 
-## Available Scripts
+function HodRegister() {
 
-In the project directory, you can run:
+   const [formData, setformData] = useState({
+        HOD :'',
+        staff :'',
+        firstname :'',
+        lastname :'',
+        email :'',
+        contact :'',
+        department :'',
+        username :'',
+        password :[],
+   })
 
-### `npm start`
+   const [first, setfirst] = useState([])
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+   console.log(first);
+   const onChangeHandler=(event)=>{
+    console.log(event.target.value);
+    setformData((prev)=>({...prev, [event.target.name] : event.target.value}))
+//     setformData((e)=>({
+//         ...formData, [event.target.name]:event.target.value
+//     }))
+   }
+    const handleSubmit=(e)=>{
+        e.preventDefault()
+        setfirst([...first,formData])
+        if(formData.firstname === "" ){
+            alert('please fill the first name')
+        }else if(formData.lastname === ""){
+            alert('please fill the last name')
+        }else if(formData.email === ""){
+            alert('please fill the email correctly')
+        }else if(formData.contact === ""){
+            alert('please fill the contact number')
+        }else if(formData.username === ""){
+            alert('please fill the username')
+        }else if(formData.password === ""){
+            alert('please fill the password')
+        }else{
+            localStorage.setItem('hoduser',JSON.stringify([...first,formData]))
+            setformData({
+                HOD :'',
+                staff :'',
+                firstname :'',
+                lastname :'',
+                email :'',
+                contact :'',
+                department :'',
+                username :'',
+                password :'',})
+        }
+    }
+    
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+  return (
+    <>
+    <div className='app'>
+        <form>
+            <div className='radio'>
+                <div>
+                    <label className='form-label'>select</label>
+                </div>
+                <div className='box1'>
+                    <input type='radio' onChange={onChangeHandler} className='input'  />
+                    <label htmlFor='hod' className='check'>HOD</label>
+                </div>
+                <div className='box2'>
+                    <input type='radio'onChange={onChangeHandler} className='input'/>
+                    <label htmlFor='staff' className='check'>STAFF</label>
+                </div>
+            </div>
+            <div className='form-group'>
+                <label className='form-label'>Firstname</label>
+                <input name='firstname' className='form-control' onChange={onChangeHandler} value={formData.firstname}/>
+            </div>
+            <div className='form-group'>
+                <label className='form-label'>Lastname</label>
+                <input name='lastname' className='form-control' onChange={onChangeHandler} value={formData.lastname}/>
+            </div>
+            <div className='form-group'>
+                <label className='form-label'>Email</label>
+                <input name='email' className='form-control'onChange={onChangeHandler} value={formData.email}/>
+            </div>
+            <div className='form-group'>
+                <label className='form-label'>Contact</label>
+                <input type='number' name='contact' className='form-control' onChange={onChangeHandler} value={formData.contact}/>
+            </div>
+            <div className='form-group'>
+                <label className='form-label'>Department</label>
+                <select className='form-choose' name='department' value={formData.department} onChange={onChangeHandler}>
+                    <option value='student'>student</option>
+                    <option value='employee'>Employee</option>
+                    <option value='other'>other</option>
+                </select>
+            </div>
+            <div className='form-group'>
+                <label className='form-label'>Username</label>
+                <input type='text' name='username' className='form-control' onChange={onChangeHandler} value={formData.username}/>
+            </div>
+            <div className='form-group'>
+                <label className='form-label'>Password</label>
+                <input type='password' name='password' className='form-control' onChange={onChangeHandler} value={formData.password}/>
+            </div>
+            <div>
+                <button type='button' className='btn' onClick={handleSubmit}>Register</button>
+                {/* <p style={{textAlign:"center"}}>
+                    Don't have an account? <Link>Sign up</Link>
+                </p> */}
+            </div>
+            
+            
+        </form>
+        
+    </div>
 
-### `npm test`
+    </>
+  )
+}
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+export default HodRegister;
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+import React, { useEffect, useState } from 'react'
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+import { Link, useNavigate } from 'react-router-dom';
 
-### `npm run eject`
+function Hodsignin() {
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   const [inputData, setinputData] = useState({username:'',password:''})
+   const [newInputData, setnewInputData] = useState([])
+   const [flag, setflag] = useState(false)
+    console.log(newInputData);
+    useEffect(() => {
+    //   console.log('Registered');
+    }, [flag])
+    
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   function handleData(e) {
+    setinputData({...inputData,[e.target.name]:e.target.value})
+    console.log(inputData);
+   }
+   function handleSubmit(e) {
+    e.preventDefault();
+    setnewInputData([...newInputData,inputData])
+    const validateData=JSON.parse(localStorage.getItem('hoduser'))
+    console.log(validateData);
+    const findData =validateData.find((item)=>item.username === inputData.username && item.password === inputData.password )
+    console.log(findData);
+    if(findData !== undefined){
+        alert('you are succesfully login')
+    }else{
+        alert('invalid data')
+    }
+   }
+   const navigate=useNavigate()
+    const handleClick=()=>{
+        navigate('/hodregister')
+    }
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+  return (
+    <div className='main'>
+        {/* <pre>{(flag)?<h2 className='define'>you have registered succesfully</h2> : ""}</pre> */}
+        <form onSubmit={handleSubmit}>
+            <div className='sub-main'>
+                <div>
+                    <h1>Login page</h1>
+                    <div>
+                        <input type='text' placeholder='Username' className='name' name='username' value={inputData.username} onChange={handleData}/>
+                    </div>
+                    <div className='second-input'>
+                        <input type='password' placeholder='Password' className='name' name='password' value={inputData.password} onChange={handleData}/>
+                    </div>
+                    <div className='login-button'>
+                    <button type='submit'>Login</button>
+                    <p onClick={handleClick} style={{textAlign:"center"}}>
+                        Don't have an account? <a>Sign up</a>
+                    </p>
+                    </div>
+                    
+                </div>
+            </div>
+        </form>
 
-## Learn More
+    </div>
+  )
+}
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+export default Hodsignin

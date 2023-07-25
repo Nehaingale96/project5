@@ -16,11 +16,28 @@ function EmpDashboard() {
 
     const navigate=useNavigate()
 
+    // const handleClick = () => {
+    //   navigate('/leavedetails')
+    // }; 
+    const totalLeave = first.length;
+    const totalApprove = first.filter(e => e.leaveStatus === 'Approved').length;
+    const totalReject = first.filter(e => e.leaveStatus === 'Reject').length;
+    const totalPending = first.filter(e => e.leaveStatus === 'pending').length;
+  
+
   return (
     <>
         <div style={{border:'1px slid red',width:'160px',margin:'60px auto'}}>
             <button onClick={()=>navigate('/leavedetails')} style={{width:'160px',margin:'0 auto',padding:'11px 7px',backgroundColor:'blue',color:'white',border:'none',borderRadius:'10px',fontSize:'20px'}}>Apply Leave</button>
         </div>
+
+        <div style={{textAlign:'center'}}>
+          <h3>Total Leave: {totalLeave}</h3>
+          <h3>Total Approve:{totalApprove}</h3>
+          <h3>Total Reject:{totalReject}</h3>
+          <h3>Total Pending:{totalPending}</h3>
+        </div> 
+
         <div className='container d-flex justify-content-center flex-wrap col-10' style={{paddingBottom:'10px',marginTop:'50px'}} >
 
           {first && first.map((e)=>{

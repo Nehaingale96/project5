@@ -6,7 +6,7 @@ function EmpDashboard() {
 
     const {state}=useContext(FirstContext)
     const {index}=state
-    console.log(index);
+    // console.log(index);
 
     const [first, setfirst] = useState([])
     useEffect(() => {

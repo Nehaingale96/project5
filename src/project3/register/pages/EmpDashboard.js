@@ -10,7 +10,7 @@ function EmpDashboard() {
 
     const [first, setfirst] = useState([])
     useEffect(() => {
-      const getDetails=JSON.parse(localStorage.getItem('leavedetails'))
+      const getDetails=JSON.parse(localStorage.getItem('leavedetails'))||[]
       setfirst(getDetails)
     }, [])
 

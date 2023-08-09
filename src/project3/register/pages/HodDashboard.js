@@ -47,7 +47,7 @@ function HodDashboard() {
   return (
     <>
         <div className='container d-flex justify-content-center flex-wrap col-10'>
-        {info1 && info1.map((item)=>{
+        {info1 !==[] && info1?.map((item)=>{
             return (
                 <div style={{border:'1px solid black',width:'350px',margin:'100px 20px 30px 0',padding:'19px 30px 19px 30px',textAlign:'center',borderRadius:'10px', boxShadow: "10px 10px 20px gray"}}>
                     {<h5> empName :  {empName1.firstname}</h5>}

@@ -1,37 +1,28 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Link, useNavigate } from 'react-router-dom'
 import { Box, Button, FormControl, FormLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
+import { v4 as uuidv4 } from 'uuid';
 
 function Register() {
 
    const [formData, setformData] = useState({
-        HOD :'',
-        staff :'',
         firstname :'',
         lastname :'',
         email :'',
         contact :'',
         department :'',
         username :'',
-        password :[],
+        password :"",
+        role:''
    })
 
    const [first, setfirst] = useState([])
 
-   const [radio, setradio] = useState(null)
+   console.log(first);
+ 
    
 
-   const handleRadioEmp=(e)=>{
-    setradio(e.target.value)
-    navigate('/empregister')
-   }
-   const handleRadioHod=(e)=>{
-    setradio(e.target.value)
-    navigate('/hodregister')
-   }
-
-   console.log(first);
    const onChangeHandler=(event)=>{
     console.log(event.target.value);
     setformData((prev)=>({...prev, [event.target.name] : event.target.value}))
@@ -39,6 +30,15 @@ function Register() {
 //         ...formData, [event.target.name]:event.target.value
 //     }))
    }
+
+    useEffect(() => {
+        const storedData = localStorage.getItem('userDetails');
+        if (storedData) {
+            setfirst(JSON.parse(storedData));
+        }
+    }, []);
+
+
     const handleSubmit=(e)=>{
         e.preventDefault()
         setfirst([...first,formData])
@@ -55,24 +55,27 @@ function Register() {
         }else if(formData.password === ""){
             alert('please fill the password')
         }else{
-            localStorage.setItem('user',JSON.stringify([...first,formData]))
+            const setStorage ={...formData,id:uuidv4()}
+            setfirst([...first,setStorage])
+            localStorage.setItem('userDetails',JSON.stringify([...first,setStorage]))
             setformData({
-                HOD :'',
-                staff :'',
                 firstname :'',
                 lastname :'',
                 email :'',
                 contact :'',
                 department :'',
                 username :'',
-                password :'',})
+                password :'',
+            })
+            navigate('/login')
         }
+
     }
 
     const navigate=useNavigate()
-    const handleClick=()=>{
-        navigate('/empregister')
-    }
+    // const handleClick=()=>{
+    //     navigate('/empregister')
+    // }
 
   return (
 
@@ -86,27 +89,27 @@ function Register() {
 
                 <Box sx={{margin:'0 auto'}}>
                 <Box display={"flex"} gap={"25px"} maxWidth={"450px"}>
-                        <FormLabel>HOD
-                            <input type='radio' checked={radio === '1'} onChange={handleRadioHod} size='small'  margin='normal' name='HOD' value={'1'} sx={{ mb: 2 }} />
-                        </FormLabel>
-                        <FormLabel>STAFF
-                            <input type='radio' checked={radio === '2'} onChange={handleRadioEmp} size='small' placeholder='Enter Last Name' margin='normal' name='staff' value={'2'} sx={{ mb: 2 }} />
-                        </FormLabel>
+                        <input type='radio'  onChange={onChangeHandler} size='small'  margin='normal' name='role' value={'hod'} sx={{ mb: 2 }} />
+                        <label>HOD
+                        </label>
+                        <input type='radio' onChange={onChangeHandler} size='small'  margin='normal' name='role' value={'emp'} sx={{ mb: 2 }} />
+                        <label>STAFF
+                        </label>
                 </Box>     
                     <> <Box display={"flex"} gap={"25px"} maxWidth={"450px"}>
                         <FormLabel>First Name
-                            <TextField onChange={onChangeHandler} size='small' placeholder='Enter First Name' margin='normal' name='firstname' value={formData.firstname} sx={{ mb: 2 }} />
+                            <TextField onChange={onChangeHandler} size='small'  margin='normal' name='firstname' value={formData.firstname} sx={{ mb: 2 }} />
                         </FormLabel>
                         <FormLabel>Last Name
-                            <TextField onChange={onChangeHandler} size='small' placeholder='Enter Last Name' margin='normal' name='lastname' value={formData.lastname} sx={{ mb: 2 }} />
+                            <TextField onChange={onChangeHandler} size='small'  margin='normal' name='lastname' value={formData.lastname} sx={{ mb: 2 }} />
                         </FormLabel>
                     </Box>
                         <Box display={"flex"} gap={"25px"} maxWidth={"450px"}>
                             <FormLabel>Email
-                                <TextField onChange={onChangeHandler} size='small' placeholder='Enter Email' margin='normal' name='email' value={formData.email} sx={{ mb: 2 }} />
+                                <TextField onChange={onChangeHandler} size='small'  margin='normal' name='email' value={formData.email} sx={{ mb: 2 }} />
                             </FormLabel>
                             <FormLabel>Contact
-                                <TextField onChange={onChangeHandler} size='small' placeholder='Enter your Contact' margin='normal' name='contact' value={formData.contact} sx={{ mb: 2 }} />
+                                <TextField onChange={onChangeHandler} size='small'  margin='normal' name='contact' value={formData.contact} sx={{ mb: 2 }} />
                             </FormLabel>
                         </Box>
                         <Box display={"flex"} gap={"25px"} maxWidth={"450px"}>
@@ -129,17 +132,17 @@ function Register() {
                         </Box>
                         <Box display={"flex"} gap={"25px"} maxWidth={"450px"}>
                             <FormLabel>Username
-                                <TextField onChange={onChangeHandler} size='small' placeholder='Enter username' margin='normal' name='username' value={formData.username} sx={{ mb: 2 }} />
+                                <TextField onChange={onChangeHandler} size='small'  margin='normal' name='username' value={formData.username} sx={{ mb: 2 }} />
                             </FormLabel>
                             <FormLabel>Password
-                                <TextField onChange={onChangeHandler} type='password' size='small' placeholder='Enter Password' margin='normal' name='password' value={formData.password} sx={{ mb: 2 }} />
+                                <TextField onChange={onChangeHandler} type='password' size='small'  margin='normal' name='password' value={formData.password} sx={{ mb: 2 }} />
                             </FormLabel>
                         </Box>
                     </>
 
             </Box>
-                    <Button type='submit' onClick={handleSubmit} sx={{ mt: 2 }} style={{width:'450px',margin:'0 auto'}}  variant="contained">LOG IN</Button>
-                    <Button sx={{ mt: 2 }} onClick={handleClick} style={{width:'450px',margin:'0 auto'}}>SIGN UP</Button>
+                    <Button type='submit' onClick={handleSubmit} sx={{ mt: 2 }} style={{width:'450px',margin:'0 auto'}}  variant="contained">Sign Up</Button>
+                    {/* <Button sx={{ mt: 2 }} onClick={handleClick} style={{width:'450px',margin:'0 auto'}}>SIGN UP</Button> */}
     </Box>
 
             </form>
@@ -151,3 +154,9 @@ function Register() {
 }
 
 export default Register
+
+
+
+
+
+

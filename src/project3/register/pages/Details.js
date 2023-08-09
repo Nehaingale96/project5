@@ -72,7 +72,7 @@ function Details() {
                 LeaveReason:'',
                
             })
-            navigate('/empdashboard')
+            navigate('/dashboard/emp')
         }
     }
 

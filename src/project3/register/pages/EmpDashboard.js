@@ -10,24 +10,13 @@ function EmpDashboard() {
 
     const [first, setfirst] = useState([])
     useEffect(() => {
-<<<<<<< HEAD
       const getDetails=JSON.parse(localStorage.getItem('leavedetails' )) || []
-=======
-      const getDetails=JSON.parse(localStorage.getItem('leavedetails'))||[]
->>>>>>> 0d3326b475b8b531b3f85cc18b564de3e7729d95
+
       setfirst(getDetails)
     }, [])
 
     const navigate=useNavigate()
     const empName2=JSON.parse(localStorage.getItem('userDataBase'))
-    // const handleClick = () => {
-    //   navigate('/leavedetails')
-    // }; 
-    const totalLeave = first.length;
-    const totalApprove = first.filter(e => e.leaveStatus === 'Approved').length;
-    const totalReject = first.filter(e => e.leaveStatus === 'Reject').length;
-    const totalPending = first.filter(e => e.leaveStatus === 'pending').length;
-  
 
     // const handleClick = () => {
     //   navigate('/leavedetails')
@@ -44,23 +33,17 @@ function EmpDashboard() {
             <button onClick={()=>navigate('/leavedetails')} style={{width:'160px',margin:'0 auto',padding:'11px 7px',backgroundColor:'blue',color:'white',border:'none',borderRadius:'10px',fontSize:'20px'}}>Apply Leave</button>
         </div>
 
-<<<<<<< HEAD
         <div style={{textAlign:'center'}}><h3>Total Leave: {totalLeave}</h3>
-=======
         <div style={{textAlign:'center'}}>
           <h3>Total Leave: {totalLeave}</h3>
->>>>>>> 0d3326b475b8b531b3f85cc18b564de3e7729d95
+
           <h3>Total Approve:{totalApprove}</h3>
           <h3>Total Reject:{totalReject}</h3>
           <h3>Total Pending:{totalPending}</h3>
+        </div>
         </div> 
 
-<<<<<<< HEAD
 
-
-
-=======
->>>>>>> 0d3326b475b8b531b3f85cc18b564de3e7729d95
         <div className='container d-flex justify-content-center flex-wrap col-10' style={{paddingBottom:'10px',marginTop:'50px'}} >
 
           {first && first.map((e)=>{
@@ -80,4 +63,4 @@ function EmpDashboard() {
   )
 }
 
-export default EmpDashboard
+export default EmpDashboard;

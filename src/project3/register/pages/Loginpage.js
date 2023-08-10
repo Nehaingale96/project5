@@ -50,7 +50,7 @@ function Loginpage() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      {/* <form onSubmit={handleSubmit}>
         <Box
           borderRadius="25px"
           border={"0.25px solid #ccc"}
@@ -91,7 +91,48 @@ function Loginpage() {
             Already have an account? Register
           </Button>
         </Box>
-      </form>
+      </form> */}
+
+
+<form onSubmit={handleSubmit}>
+  <div className="container mt-5">
+    <div className="row justify-content-center">
+      <div className="col-md-6">
+        <div className="border rounded p-4 shadow-sm border-radius-10">
+          <div className="form-group">
+            <input
+              className="form-control"
+              value={inputData.username}
+              onChange={handleData}
+              name="username"
+              placeholder="Enter username"
+              style={{marginTop:'10px'}}
+              type="text"
+            />
+          </div>
+          <div className="form-group">
+            <input
+              className="form-control"
+              value={inputData.password}
+              onChange={handleData}
+              name="password"
+              placeholder="Enter Password"
+              style={{marginTop:'10px'}}
+              type="password"
+            />
+          </div>
+          <button className="btn btn-primary btn-block" type="submit">
+            Login
+          </button>
+          <button className="btn btn-link mt-2 text-decoration-none" style={{marginLeft:'90px'}} onClick={handleClick}>
+            Already have an account? Register
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
     </>
   );
 }

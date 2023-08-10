@@ -35,7 +35,7 @@ function EmpDashboard() {
 
         <div style={{textAlign:'center'}}><h3>Total Leave: {totalLeave}</h3>
         <div style={{textAlign:'center'}}>
-          <h3>Total Leave: {totalLeave}</h3>
+          {/* <h3>Total Leave: {totalLeave}</h3> */}
 
           <h3>Total Approve:{totalApprove}</h3>
           <h3>Total Reject:{totalReject}</h3>

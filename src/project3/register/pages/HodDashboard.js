@@ -49,15 +49,16 @@ function HodDashboard() {
         <div className='container d-flex justify-content-center flex-wrap col-10'>
         {info1 !==[] && info1?.map((item)=>{
             return (
-                <div style={{border:'1px solid black',width:'350px',margin:'100px 20px 30px 0',padding:'19px 30px 19px 30px',textAlign:'center',borderRadius:'10px', boxShadow: "10px 10px 20px gray"}}>
-                    {<h5> empName :  {empName1.firstname}</h5>}
-                    {<h5> Fromdate :  {item.Fromdate}</h5>}
-                    {<h5> ToDate:  {item.ToDate}</h5>}
-                    {<h5> LeaveReason:  {item.LeaveReason}</h5>}
+                <div style={{border:'1px solid black',width:'350px',margin:'100px 20px 30px 0',padding:'19px 30px 19px 30px',borderRadius:'10px', boxShadow: "10px 10px 20px gray"}}>
+                    {/* {<h5> empName :  {empName1.firstname}</h5>} */}
+                    {<h5> From:  {item.Fromdate}</h5>}
+                    {<h5> To:  {item.ToDate}</h5>}
+                    {<h5> Reason:  {item.LeaveReason}</h5>}
                   
-                    <div style={{width:'300px',margin:'20px 0 auto',textAlign:'center',justifyContent:'center',gap:'15px'}} className='d-flex'>
-                        <button onClick={()=>handleApprove(item.id)} style={{border:'1px solid red',width:'90px',backgroundColor:'green',color:'white',padding:'7px 5px 10px 5px',border:'none',borderRadius:'7px'}}>Approve</button>
-                        <button onClick={()=>handleReject(item.id)} style={{border:'1px solid red',width:'90px',backgroundColor:'red',color:'white',padding:'7px 5px 10px 5px',border:'none',borderRadius:'7px'}}>Reject</button>
+                    <div style={{width:'300px',margin:'20px 0 auto',gap:'15px'}} className='d-flex'>
+                        <button onClick={()=>{handleApprove(item.id);
+                            alert('Leave request approved successfully!')}} style={{border:'1px solid red',width:'130px',backgroundColor:'green',color:'white',padding:'7px 10px 10px 15px',border:'none',borderRadius:'7px'}}>Approve</button>
+                        <button onClick={()=>{handleReject(item.id);alert('Leave request Rejected successfully!')}} style={{border:'1px solid red',width:'130px',backgroundColor:'red',color:'white',padding:'7px 10px 10px 15px',border:'none',borderRadius:'7px'}}>Reject</button>
                     </div>
                 </div>
             )

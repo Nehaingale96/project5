@@ -125,7 +125,7 @@ function Loginpage() {
             Login
           </button>
           <button className="btn btn-link mt-2 text-decoration-none" style={{marginLeft:'90px'}} onClick={handleClick}>
-            Already have an account? Register
+            Don't have an account? Register
           </button>
         </div>
       </div>

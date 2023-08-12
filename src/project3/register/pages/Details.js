@@ -78,21 +78,51 @@ function Details() {
 
   return (
     <>
-        <form>
+        {/* <form>
             <Box borderRadius="15px" border={"0.25px solid #ccc"} alignItems={"center"} padding={"40px"} display={"flex"} flexDirection={"column"} maxWidth={"450px"} margin={"60px auto"} boxShadow={"5px 5px 10px #ccc"} sx={{ ":hover": { boxShadow: "10px 10px 20px #ccc" } }}>
-                <FormLabel><h5>Fromdate</h5>
+                <FormLabel><h5>From</h5>
                     <TextField type='date' value={first.Fromdate} onChange={handleChange}  size='small' sx={{ mb: 2 }} name='Fromdate' />
                 </FormLabel>
-                <FormLabel><h5>ToDate</h5>
+                <FormLabel><h5>To</h5>
                     <TextField type='date' value={first.ToDate} onChange={handleChange} size='small'  sx={{ mb: 2 }} name='ToDate'/>
                 </FormLabel>
                 <div onChange={handleChange} name='leaveCount' type='number' value={num}>Number of Days : {displayLeave}  </div>
-                <FormLabel>LeaveReason
+                <FormLabel>Leave Reason
                 <TextareaAutosize type="text" name='LeaveReason' style={{ width: "400px" }} onChange={handleChange}  value={first.LeaveReason} minRows={3}></TextareaAutosize>
                 </FormLabel>
-                <Button onClick={handleSubmit}>Apply Leave</Button>
+                <Button onClick={handleSubmit} type='button'>Apply Leave</Button>
             </Box>
-        </form>
+        </form> */}
+
+<form>
+    <div className="container">
+        <div className="row justify-content-center mt-5">
+            <div className="col-md-5">
+                <div className="border rounded p-4 shadow">
+                    {/* <h5 className="mb-4">Leave Application Form</h5> */}
+                    <div className="form-group">
+                        <label htmlFor="Fromdate"><h6 style={{marginLeft:'50px'}}>From</h6></label>
+                        <input type="date" style={{width:'300px',marginLeft:'50px'}} className="form-control" value={first.Fromdate} onChange={handleChange} name="Fromdate" />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="ToDate"><h6 style={{marginLeft:'50px'}}>To</h6></label>
+                        <input type="date" style={{width:'300px',marginLeft:'50px'}} className="form-control" value={first.ToDate} onChange={handleChange} name="ToDate" />
+                    </div>
+                    <div className="form-group">
+                        <label><h6 style={{marginLeft:'50px',marginTop:'10px'}}>Number of Days: {displayLeave}</h6></label>
+                        {/* Input for leaveCount here */}
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="LeaveReason"><h6 style={{marginLeft:'50px'}}>Leave Reason</h6></label>
+                        <textarea className="form-control" style={{ width: "300px",marginLeft:'50px' }} onChange={handleChange} value={first.LeaveReason} name="LeaveReason" rows="3"></textarea>
+                    </div>
+                    <button className="btn btn-primary" style={{marginLeft:'140px'}} onClick={handleSubmit} type="button">Apply Leave</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
     </>
   )
 }
